@@ -22,6 +22,7 @@
 body{
     /* background: var(--light);
     color: var(--dark); */
+    color: #ffffff;
     background: url('/BG.jpg');
     background-position: center;
     background-size: cover;
