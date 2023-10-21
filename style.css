@@ -24,7 +24,7 @@ body{
     color: var(--dark); */
     background: url('/BG.jpg');
     background-repeat: none;
-    background-size: cover;
+    background-size:contain;
     display: flex;
     flex-direction: column;
     justify-content: center;
