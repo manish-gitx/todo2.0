@@ -1,3 +1,4 @@
+window.addEventListener('load', () => {
 const main_input=document.getElementById('input1');
 const btn=document.querySelector(".btn-pick");
 const edit=document.querySelector(".edit-text");
@@ -41,6 +42,11 @@ function clickie(event){
     footer.appendChild(div);
 
     main_input.value="";
+
+    button2.addEventListener('click', () => {
+        footer.removeChild(div);
+    });
 }
+});
 
 
