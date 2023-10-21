@@ -20,8 +20,11 @@
     font-family: 'montserrat', sans-serif;
 }
 body{
-    background: var(--light);
-    color: var(--dark);
+    /* background: var(--light);
+    color: var(--dark); */
+    background: url('/BG.jpg');
+    background-repeat: none;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -45,6 +48,21 @@ h1{
 }
 .bubble:checked {
     background-color:var(--business);
+}
+.bubble1{
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    vertical-align: middle;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid var(--personal);
+    box-shadow: var(--business-glow);
+}
+.bubble1:checked {
+    background-color:var(--personal);
 }
 header{
     display: flex;
@@ -108,8 +126,13 @@ header{
 .text-list{
     background-color: transparent;
     border: transparent;
-    outline: none;
-    
+    outline: none; 
+}
+.text-list1{
+    background-color: transparent;
+    border: transparent;
+    outline: none; 
+    text-decoration: line;
 }
 
 .btn-pick{

@@ -3,17 +3,43 @@ const main_input=document.getElementById('input1');
 const btn=document.querySelector(".btn-pick");
 const edit=document.querySelector(".edit-text");
 const footer=document.querySelector('footer');
+const radio1=document.querySelector('#radio1');
+const radio2=document.querySelector('#radio2');
+var decide;
+
+
 btn.addEventListener("click",clickie);
 
 function clickie(event){
     event.preventDefault();
+    if(radio1.checked){
+        decide="professional"
+    }
+    else if(radio2.checked){
+       decide="personal"
+    }
+    else{
+        alert("please select category");
+        return;
+    }
     var val=main_input.value;
+    if(val==""){
+        alert("type something");
+        return;
+    }
     const div=document.createElement("div");
     div.classList.add("info");
 
     const input=document.createElement('input');
     input.setAttribute('type','checkbox');
-    input.classList.add('bubble');
+    if(decide=="professional"){
+        input.classList.add('bubble');
+        
+    }
+    else{
+        input.classList.add('bubble1');
+    }
+    
 
     div.appendChild(input);
 
@@ -21,7 +47,8 @@ function clickie(event){
     input_text.setAttribute('type','text');
     input_text.value=val;
     input_text.classList.add("text-list");
-    input_text.setAttribute('readonly',true);
+
+    input_text.readOnly=true;
 
     div.appendChild(input_text);
 
@@ -46,6 +73,33 @@ function clickie(event){
     button2.addEventListener('click', () => {
         footer.removeChild(div);
     });
+
+    button1.addEventListener('click',() =>{
+        input_text.removeAttribute('readonly');
+        // input_text.setAttribute('readonly',false); ask why it is not coming
+        input_text.focus();
+        input_text.addEventListener('blur',()=>{
+            input_text.setAttribute('readonly',true);
+        });
+    });
+    var count=0;
+    input.addEventListener('change',()=>{
+
+        if(input.checked){
+            input_text.classList.add("text-list1");
+        }
+        else if(input.checked==false){
+            input_text.classList.remove("text-list1");
+            console.log("off")
+
+        }
+
+    });
+
+
+
+
+
 }
 });
 
