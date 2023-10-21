@@ -56,26 +56,47 @@ header{
     height: 70px;
     width: 140px;
     border-radius: 6px;
-    padding: 10px 30px ;
+    padding: 15px 30px ;
     text-align: center;
 }
 .info{
     display: flex;
     background-color: #ffffff;
-    gap: 5px;
+    gap: 10px;
     border-radius: 6px;
     padding:10px 5px;
  
 }
-.change{
-  
+.info button{
+    background-color: transparent;
+    border: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease-in-out;
+    outline: none;
+}
+
+.info button:hover {
+    background-color: var(--light);
+    color: #fff;
+    border-radius: 2px;
+   
+}
+.info button:hover span {
+    transform: translateY(-3px);
+}
+
+.info button span {
+    display: inline-block;
+    transition: transform 0.3s ease-in-out;
 }
 .text-list{
     background-color: transparent;
     border: transparent;
+    outline: none;
+    
 }
-.btn-pick{
 
+.btn-pick{
     text-align: center;
     padding: 10px 0px;
     background-color: var(--primary);
@@ -85,11 +106,26 @@ header{
     border-radius: 6px;
     width: 100%;
     cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+.btn-pick:hover {
+    background-color: #ff69b4;
 }
 #input1{
     border-radius: 6px;
     width: 100%;
     padding: 10px 15px;
+    outline: none;
     
     border: transparent;
+}
+#radio1{
+    accent-color: var(--business);
+    transform: scale(1.25);
+    
+}
+#radio2{
+    accent-color: var(--primary);
+    transform: scale(1.25);
 }
