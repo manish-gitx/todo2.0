@@ -23,8 +23,8 @@ body{
     /* background: var(--light);
     color: var(--dark); */
     background: url('/BG.jpg');
-    background-repeat: none;
-    background-size:contain;
+    background-position: center;
+    background-size: cover;
     display: flex;
     flex-direction: column;
     justify-content: center;
