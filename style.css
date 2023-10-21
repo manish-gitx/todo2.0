@@ -22,7 +22,6 @@
 body{
     background: var(--light);
     color: var(--dark);
-    margin-left: 5px;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -31,6 +30,21 @@ body{
 h1{
     color: var(--primary);
 
+}
+.bubble{
+    width: 1.3em;
+    height: 1.3em;
+    border-radius: 50%;
+    vertical-align: middle;
+    appearance: none;
+    -webkit-appearance: none;
+    outline: none;
+    cursor: pointer;
+    border: 2px solid var(--business);
+    box-shadow: var(--business-glow);
+}
+.bubble:checked {
+    background-color:var(--business);
 }
 header{
     display: flex;
@@ -63,6 +77,7 @@ header{
     display: flex;
     background-color: #ffffff;
     gap: 10px;
+    margin: 5px 0px;
     border-radius: 6px;
     padding:10px 5px;
  
@@ -71,6 +86,7 @@ header{
     background-color: transparent;
     border: transparent;
     cursor: pointer;
+    margin-right: 7px;
     transition: all 0.3s ease-in-out;
     outline: none;
 }
