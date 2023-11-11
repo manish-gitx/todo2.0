@@ -5,6 +5,8 @@ const edit=document.querySelector(".edit-text");
 const footer=document.querySelector('footer');
 const radio1=document.querySelector('#radio1');
 const radio2=document.querySelector('#radio2');
+const name=document.querySelector(".name-input")
+const name_val=document.querySelector(".name-val")
 var decide;
 
 
@@ -12,6 +14,22 @@ btn.addEventListener("click",clickie);
 
 function clickie(event){
     event.preventDefault();
+
+    if (name.value === "") {
+        alert("please enter name");
+    } else {
+        var nameme=name.value;
+        // The issue is that you're trying to use the .value property on an h2 element.
+        //  The .value property is used for form elements like input, 
+        //  select, textarea, etc. For other HTML elements like h2,
+        // you should use .textContent or .innerText to change the text inside it. Here's the corrected code:
+        name.remove();
+        name_val.innerText="What'up, "+nameme+" here";
+
+    }
+
+
+
     if(radio1.checked){
         decide="professional"
     }

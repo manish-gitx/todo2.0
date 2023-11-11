@@ -152,6 +152,18 @@ header{
     transition: background-color 0.3s ease-in-out;
 }
 
+.name-input{
+    border: transparent;
+    background-color: black;
+    border-radius: 3px;
+    color: #ffffff;
+    width: 100px;
+    outline: none;
+    font-size: 0.9em;
+
+    font-weight: bold;
+}
+
 .btn-pick:hover {
     background-color: #ff69b4;
 }
