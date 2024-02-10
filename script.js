@@ -1,124 +1,135 @@
-window.addEventListener('load', () => {
+
+let todos=localStorage.getItem("todos")!=null?JSON.parse(localStorage.getItem("todos")): [];
+
+
 const main_input=document.getElementById('input1');
 const btn=document.querySelector(".btn-pick");
+const container=document.querySelector(".container")
 const edit=document.querySelector(".edit-text");
-const footer=document.querySelector('footer');
 const radio1=document.querySelector('#radio1');
 const radio2=document.querySelector('#radio2');
 const name=document.querySelector(".name-input")
 const name_val=document.querySelector(".name-val")
 var decide;
+btn.addEventListener("click",(e)=>{
+    e.preventDefault();
 
 
-btn.addEventListener("click",clickie);
-
-function clickie(event){
-    event.preventDefault();
-
-    if (name.value === "") {
-        alert("please enter name");
-    } else {
-        var nameme=name.value;
-        // The issue is that you're trying to use the .value property on an h2 element.
-        //  The .value property is used for form elements like input, 
-        //  select, textarea, etc. For other HTML elements like h2,
-        // you should use .textContent or .innerText to change the text inside it. Here's the corrected code:
-        name.remove();
-        name_val.innerText="What'up, "+nameme+" here";
-
-    }
-
-
-
-    if(radio1.checked){
-        decide="professional"
+    var val=main_input.value;
+        if(val==""){
+            alert("type something");
+            return;
+        }
+        if(radio1.checked){
+        decide=true;
     }
     else if(radio2.checked){
-       decide="personal"
+       decide=false;
     }
     else{
         alert("please select category");
         return;
-    }
-    var val=main_input.value;
-    if(val==""){
-        alert("type something");
-        return;
-    }
-    const div=document.createElement("div");
-    div.classList.add("info");
-
-    const input=document.createElement('input');
-    input.setAttribute('type','checkbox');
-    if(decide=="professional"){
-        input.classList.add('bubble');
-        
-    }
-    else{
-        input.classList.add('bubble1');
-    }
-    
-
-    div.appendChild(input);
-
-    const input_text=document.createElement('input');
-    input_text.setAttribute('type','text');
-    input_text.value=val;
-    input_text.classList.add("text-list");
-
-    input_text.readOnly=true;
-
-    div.appendChild(input_text);
-
-    const Child_div=document.createElement("div");
-    Child_div.classList.add("change");
-
-    const button1=document.createElement('button');
-    button1.innerText="Edit";
-
-    const button2=document.createElement('button');
-    button2.innerText="Delete";
-
-    const input2=document.querySelector(".text-list");
-    
-    Child_div.appendChild(button1);
-    Child_div.appendChild(button2);
-    div.appendChild(Child_div);
-    footer.appendChild(div);
-
-    main_input.value="";
-
-    button2.addEventListener('click', () => {
-        footer.removeChild(div);
-    });
-
-    button1.addEventListener('click',() =>{
-        input_text.removeAttribute('readonly');
-        // input_text.setAttribute('readonly',false); ask why it is not coming
-        input_text.focus();
-        input_text.addEventListener('blur',()=>{
-            input_text.setAttribute('readonly',true);
-        });
-    });
-    var count=0;
-    input.addEventListener('change',()=>{
-
-        if(input.checked){
-            input_text.classList.add("text-list1");
-        }
-        else if(input.checked==false){
-            input_text.classList.remove("text-list1");
-            console.log("off")
-
-        }
-
-    });
-
-
-
-
-
 }
-});
+main_input.value=""
+   var todo={
+        cond:decide,
+        input:val,
+        check:false,
+        id:Math.floor(Math.random()*100000)
+    }
+    addPostDom(todo.id, todo.cond, todo.input,todo.check);
+    todos.push(todo);
+    localStorage.setItem("todos",JSON.stringify(todos));
+
+})
+
+function addPostDom(id,cond,input,check){
+    container.innerHTML+=`<div class="info">
+    <input data-id="${id}" type="checkbox" data-check="${check}"  data-type="circle" ${check?"checked":""} class=${cond?"bubble":"bubble1"}>
+    <input readonly  data-id="${id}" class="text-list" value="${input}" type="text">
+    <div class="change">
+       <button class="edit"  data-id="${id}">Edit</button>
+       <button class="delete"  data-id="${id}">Delete</button>
+    </div>
+</div>`
+}
+function removeEle(id){
+    todos=todos.filter(todo=>{
+        return todo.id!=id;
+    })
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
+function editInput(id,text1){
+    todos=todos.map(todo=>{
+        if(todo.id==id){
+            todo.input=text1;
+        }
+        return todo;
+    })
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+function editCheck(id,isTf){
+
+    
+    todos=todos.map(todo=>{
+        if(todo.id==id){
+            todo.check=isTf;
+        }
+        return todo;
+    })
+    localStorage.setItem("todos",JSON.stringify(todos));
+}
+
+
+function render(){
+    for (let i = 0; i < todos.length; i++) {
+        addPostDom(todos[i].id, todos[i].cond, todos[i].input, todos[i].check);
+    }
+}
+container.addEventListener("click",(e)=>{
+    if (e.target.classList.contains("delete")) {
+        removeEle(Number(e.target.dataset.id));
+        container.innerHTML="";
+        render();
+    }
+    if(e.target.classList.contains("edit")){
+        
+        const select=e.target.parentNode.parentNode.querySelector(".text-list");
+        console.log(select)
+            select.removeAttribute('readonly');
+                e.target.setAttribute('readonly', false); 
+                select.focus();
+                select.addEventListener('blur', () => {
+                    select.setAttribute('readonly', true);
+                    editInput(e.target.dataset.id,select.value);
+                    container.innerHTML="";
+                    render();
+                });
+    }
+
+    if (e.target.dataset.type === 'circle') {
+        if(e.target.dataset.check=="false"){
+            e.target.dataset.check="true"
+            editCheck(Number(e.target.dataset.id),true);
+           
+        }
+        else{
+            e.target.dataset.check="false"
+            console.log("rme")
+            editCheck(Number(e.target.dataset.id),false);
+        }
+    }
+})
+
+
+
+
+//         }
+
+
+render();
+
+
 
 
